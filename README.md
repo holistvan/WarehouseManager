@@ -43,4 +43,4 @@
 
 #### 5. Adatbázis-terv:
 
-
+![alt text](WarehouseManager/DatabasePlan.jpg)
