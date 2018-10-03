@@ -43,4 +43,4 @@
 
 #### 5. Adatbázis-terv:
 
-![alt text](WarehouseManager/DatabasePlan.jpg)
+![alt text](https://github.com/holistvan/WarehouseManager/blob/master/DatabasePlan.jpg)
