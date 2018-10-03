@@ -2,7 +2,7 @@
 ### WarehouseManager - Raktárkészlet kezelő alkalmazás (Dittrich Dia és Holczmann István)
 
 #### 1. Feladat szöveges leírása:
-> Egy online elérhető raktárkészlet kezelő alkalmazás. A programban lehetőség van alapanyagok és kész termékek mennyiségének nyomonkövetésére, azok megrendelésére, előállítására, feltüöltésére.
+> Egy online elérhető raktárkészlet kezelő alkalmazás. A programban lehetőség van alapanyagok és kész termékek mennyiségének nyomonkövetésére, azok megrendelésére, előállítására, feltöltésére.
 
 #### A raktárkészlet kezelő működése:
 > Bejelentkezés után a a megadott jogkörök alapján a raktárkészlet elérhető, és szintén jogosultág alapján azon műveletek végezhetők. A megrendelőnek lehetősége van a raktárkészletet csökkenteni, vagy igényt leadni, hogy mire van szüksége. A beszerző feltölti a raktárkészletet, új terméket vezethet fel. Az adminisztrátor mindenhez hozzáfér.
