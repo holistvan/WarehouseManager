@@ -3,22 +3,17 @@ package hu.elte.WarehouseManager.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
-public class User {
+public class NewItemRequest {
 
     @Id
     private Integer id;
 
     @Column
-    private String username;
+    private String productname;
 
     @Column
-    private String password;
-
-    @Column
-    private String role;
-
+    private Integer owner;
 }
