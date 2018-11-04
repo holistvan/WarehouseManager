@@ -6,17 +6,20 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@Table(name = "REQUESTS")
 public class Request {
 
     @Id
-    private Integer id;
+    @Column(name = "REQUEST_ID")
+    private Integer requestID;
 
-    @Column
-    private Integer owner;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "OWNER_ID")
+    private User owner;
 
-    @Column
-    private String productname;
+    @Column(name = "PRODUCT_NAME")
+    private String productName;
 
-    @Column
-    private Integer quantity;
+    @Column(name = "QUANTITY_IN_STOCK")
+    private Integer quantityInStock;
 }
