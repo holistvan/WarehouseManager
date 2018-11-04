@@ -3,23 +3,34 @@ package hu.elte.WarehouseManager.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
+@Table(name = "PRODUCTS")
 public class Product {
 
     @Id
-    private String productname;
+    @Column(name = "PRODUCT_ID")
+    private Integer productID;
 
-    @Column
+    @Column(name = "NAME")
+    private String name;
+
+    @Column(name = "TYPE")
     private String type;
 
-    @Column
-    private Integer group_id;
+    // @ManyToOne
+    // @JoinColumn(name="GROUP_ID")
+    // @Column(name = "GROUP_ID")
+    // private ProductGroup productGroup;
 
-    @Column
-    private Integer quantity;
+    @Column(name = "QUANTITY_IN_STOCK")
+    private Integer quantityInStock;
 
+    // @OneToOne(mappedBy = "product")
+    // private Request newRequest;
 
-
+    // @OneToMany(mappedBy = "product")
+    // private List<Request> requests;
 }
