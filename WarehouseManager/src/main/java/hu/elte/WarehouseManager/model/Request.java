@@ -13,12 +13,12 @@ public class Request {
     @Column(name = "REQUEST_ID")
     private Integer requestID;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "OWNER_ID")
-    private User owner;
-
     @Column(name = "PRODUCT_NAME")
     private String productName;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ID")
+    private User owner;
 
     @Column(name = "QUANTITY_IN_STOCK")
     private Integer quantityInStock;
