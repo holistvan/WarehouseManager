@@ -1,8 +1,10 @@
 package hu.elte.WarehouseManager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,6 +25,7 @@ public class Product {
     @Column(name = "QUANTITY_IN_STOCK")
     private Integer quantity;
 
-
-
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+    @JsonIgnore
+    private List<Request> requests;
 }

@@ -17,8 +17,9 @@ public class Request {
     @JoinColumn(name = "USER_ID")
     private User owner;
 
-    @Column(name = "PRODUCT_NAME")
-    private String productName;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "PRODUCT_NAME")
+    private Product product;
 
     @Column(name = "ORDERED_AMOUNT")
     private Integer orderedAmount;
