@@ -18,7 +18,6 @@ public class ProductGroup {
     @Column(name = "PRODUCT_GROUP_NAME")
     private String groupName;
 
-    // @OneToMany(mappedBy = "productGroup", cascade = CascadeType.REMOVE)
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "productGroup")
     @JsonIgnore
     private List<Product> products;

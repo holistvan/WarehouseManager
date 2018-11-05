@@ -13,13 +13,13 @@ public class Request {
     @Column(name = "REQUEST_ID")
     private Integer requestID;
 
-    @Column(name = "PRODUCT_NAME")
-    private String productName;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     private User owner;
 
-    @Column(name = "QUANTITY_IN_STOCK")
-    private Integer quantityInStock;
+    @Column(name = "PRODUCT_NAME")
+    private String productName;
+
+    @Column(name = "ORDERED_AMOUNT")
+    private Integer orderedAmount;
 }
