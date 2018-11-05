@@ -12,6 +12,9 @@ import java.util.List;
 public class Product {
 
     @Id
+    @Column(name = "PRODUCT_ID")
+    private Integer productID;
+
     @Column(name = "PRODUCT_NAME")
     private String productName;
 
