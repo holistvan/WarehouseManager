@@ -2,6 +2,8 @@ package hu.elte.WarehouseManager.controller;
 
 import hu.elte.WarehouseManager.model.Product;
 import hu.elte.WarehouseManager.model.ProductGroup;
+import hu.elte.WarehouseManager.model.Request;
+import hu.elte.WarehouseManager.model.User;
 import hu.elte.WarehouseManager.repository.ProductGroupRepository;
 import hu.elte.WarehouseManager.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,16 @@ public class ProductGroupController {
         Optional<ProductGroup> optionalProductGroup = productGroupRepository.findById(id);
         if (optionalProductGroup.isPresent()) {
             return ResponseEntity.ok(optionalProductGroup.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{id}/products")
+    public ResponseEntity<List<Product>> getProducts(@PathVariable Integer id) {
+        Optional<ProductGroup> optionalProductGroup = productGroupRepository.findById(id);
+        if (optionalProductGroup.isPresent()) {
+            return ResponseEntity.ok(optionalProductGroup.get().getProducts());
         } else {
             return ResponseEntity.notFound().build();
         }

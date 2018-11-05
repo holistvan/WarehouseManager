@@ -1,6 +1,8 @@
 package hu.elte.WarehouseManager.controller;
 
 import hu.elte.WarehouseManager.model.Product;
+import hu.elte.WarehouseManager.model.ProductGroup;
+import hu.elte.WarehouseManager.model.Request;
 import hu.elte.WarehouseManager.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -28,6 +31,16 @@ public class ProductController {
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
             return ResponseEntity.ok(optionalProduct.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{id}/requests")
+    public ResponseEntity<List<Request>> getProductRequests(@PathVariable Integer id) {
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()) {
+            return ResponseEntity.ok(optionalProduct.get().getRequests());
         } else {
             return ResponseEntity.notFound().build();
         }

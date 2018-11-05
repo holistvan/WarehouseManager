@@ -44,10 +44,10 @@ public class UserController {
     }
 
     @GetMapping("/{id}/requests")
-    public ResponseEntity<User> getUserRequests(@PathVariable Integer id) {
+    public ResponseEntity<List<Request>> getUserRequests(@PathVariable Integer id) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
-            return ResponseEntity.ok(optionalUser.get());
+            return ResponseEntity.ok(optionalUser.get().getRequests());
         } else {
             return ResponseEntity.notFound().build();
         }
