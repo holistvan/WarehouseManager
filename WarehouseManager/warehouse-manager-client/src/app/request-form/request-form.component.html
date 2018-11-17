@@ -1,26 +1,27 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <h1>New request</h1>
-      <form class="row">
-        <mat-form-field class="col">
-          <input matInput placeholder="Title">
+<div class="requestform-container">
+  <h1 class="request-form-h1">Create new request</h1>
+    <div class="requestform-fields">
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="Username">
         </mat-form-field>
-        <mat-form-field class="col">
-          <input matInput placeholder="Author">
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="Product Name">
+          <mat-hint>Kérem válasszon az elérhető termékek közül</mat-hint>
         </mat-form-field>
-        <mat-form-field class="col">
-          <input
-            type="number"
-            matInput
-            placeholder="Length"
-          >
+      </p>
+      <p>
+        <mat-form-field>
+          <input type="number" min="0" max="100" matInput placeholder="Ordered Amount">
+          <mat-hint>Kérem adja meg a rendelt mennyiséget</mat-hint>
         </mat-form-field>
-        <mat-form-field class="col">
-          <input matInput placeholder="Genre">
-        </mat-form-field>
-        <button mat-button>Save</button>
-      </form>
+      </p>
     </div>
+
+  <div class="requestform-button">
+    <button mat-raised-button>Save</button>
   </div>
+  
 </div>

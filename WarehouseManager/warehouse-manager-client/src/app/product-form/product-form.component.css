@@ -1,0 +1,23 @@
+.productform-container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+    padding-top: 50px;
+}
+
+.product-form-h1 {
+    font-family: 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+}
+
+.productform-fields {
+    padding-left: 75px;
+}
+
+.productform-button {
+    padding-left: 500px;
+}
+
+mat-form-field {
+    width: 40%;
+}

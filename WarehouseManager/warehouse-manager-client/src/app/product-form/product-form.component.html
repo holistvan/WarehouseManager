@@ -1,3 +1,33 @@
-<p>
-  product-form works!
-</p>
+<div class="productform-container">
+    <h1 class="product-form-h1">Add new product</h1>
+      <div class="productform-fields">
+        <p>
+          <mat-form-field>
+            <input matInput placeholder="Product name">
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field>
+            <input matInput placeholder="Product type">
+            <mat-hint>Kérem válasszon az elérhető termékek közül</mat-hint>
+          </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+              <input matInput placeholder="Product group">
+              <mat-hint>Kérem válasszon az elérhető termékek közül</mat-hint>
+            </mat-form-field>
+          </p>
+        <p>
+          <mat-form-field>
+            <input type="number" min="1" matInput placeholder="Quantity in stock">
+            <mat-hint>Kérem adja meg a rendelt mennyiséget</mat-hint>
+          </mat-form-field>
+        </p>
+      </div>
+  
+    <div class="productform-button">
+      <button mat-raised-button>Save</button>
+    </div>
+    
+  </div>
