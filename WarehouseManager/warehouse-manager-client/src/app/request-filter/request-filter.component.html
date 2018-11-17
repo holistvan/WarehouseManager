@@ -1,0 +1,13 @@
+<mat-form-field>
+  <input (change)="filterText = $event.target.value"
+  [value]="filterText">
+<!--input
+  [(ngModel)]="filterText"
+  matInput
+  [placeholder]="filterName"
+-->
+</mat-form-field>
+<button
+mat-button
+(click)="filter()"
+>Filter</button>
