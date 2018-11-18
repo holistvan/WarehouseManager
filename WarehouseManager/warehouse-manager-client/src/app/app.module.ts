@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { RoutingModule } from './routing/routing.module';
+import { HttpClientModule }    from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductListComponent } from './product-list/product-list.component';
@@ -12,6 +14,7 @@ import { RequestFormComponent } from './request-form/request-form.component';
 import { RequestDetailComponent } from './request-detail/request-detail.component';
 import { RequestFilterComponent } from './request-filter/request-filter.component';
 import { ProductService } from './product.service';
+import { ProductFilterComponent } from './product-filter/product-filter.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,7 @@ import { ProductService } from './product.service';
     RequestFormComponent,
     RequestDetailComponent,
     RequestFilterComponent,
+    ProductFilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +37,7 @@ import { ProductService } from './product.service';
     MatFormFieldModule,
     MatInputModule,
     RoutingModule,
+    HttpClientModule,
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]

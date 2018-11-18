@@ -1,22 +1,24 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { RequestService } from '../request.service';
+import { REQUESTS } from '../mock-requests';
+import { Request } from '../request';
 
 @Component({
   selector: 'request-list',
   templateUrl: './request-list.component.html',
-  styleUrls: ['./request-list.component.css']
+  styleUrls: ['./request-list.component.css'],
+  providers: [RequestService],
 })
 export class RequestListComponent implements OnInit, OnDestroy {
 
-  requestItems: string[] = [
-    'Request1',
-    'Request2',
-    'Request3',
-  ];
+  requests = REQUESTS;
 
-  filteredRequestItems: string[];
+  filteredRequests: Request[];
   submitted: boolean = false;
 
-  constructor() { }
+  constructor(
+    private requestService: RequestService,
+  ) { }
 
   ngOnInit() {
   }
@@ -25,17 +27,26 @@ export class RequestListComponent implements OnInit, OnDestroy {
   }
 
   filter(filterText: string) {
-    this.filteredRequestItems = [];
-    for (let requestItem of this.requestItems) {
 
-      if (requestItem.startsWith(filterText)) {
+    this.filteredRequests = [];
 
-        this.filteredRequestItems.push(requestItem);
+    if( filterText == '' ) {
 
+      alert("Kérem adjon meg keresési feltételt");
+
+    } else {
+
+      for (let request of this.requests) {
+        if ( request.request_id == parseInt(filterText) ) {
+          this.filteredRequests.push(request);
+        }
       }
 
+      if (this.filteredRequests.length == 0) {
+        alert("Rendszerünkben nem található a keresési feltételeknek megfelelő igény");
+      } else {
+        this.submitted = true;
+      }
     }
-    this.submitted = true;
   }
-
 }
