@@ -3,31 +3,32 @@
       <div class="productform-fields">
         <p>
           <mat-form-field>
-            <input matInput placeholder="Product name">
+            <input matInput (change)="productName = $event.target.value" [value]="productName" placeholder="Product name">
+            <mat-hint>Kérem adja meg a termék nevét</mat-hint>
           </mat-form-field>
         </p>
         <p>
           <mat-form-field>
-            <input matInput placeholder="Product type">
-            <mat-hint>Kérem válasszon az elérhető termékek közül</mat-hint>
+            <input matInput (change)="productType = $event.target.value" [value]="productType" placeholder="Product type">
+            <mat-hint>Kérem válasszon a termék típusok közül</mat-hint>
           </mat-form-field>
         </p>
         <p>
             <mat-form-field>
-              <input matInput placeholder="Product group">
-              <mat-hint>Kérem válasszon az elérhető termékek közül</mat-hint>
+              <input matInput (change)="productGroup = $event.target.value" [value]="productGroup" placeholder="Product group">
+              <mat-hint>Kérem válasszon a termékcsoportok közül</mat-hint>
             </mat-form-field>
           </p>
         <p>
           <mat-form-field>
-            <input type="number" min="1" matInput placeholder="Quantity in stock">
-            <mat-hint>Kérem adja meg a rendelt mennyiséget</mat-hint>
+            <input type="number" min="1" matInput (change)="quantityInStock = $event.target.value" [value]="quantityInStock" placeholder="Quantity in stock">
+            <mat-hint>Kérem adja meg a jelenleg raktáron lévő mennyiséget</mat-hint>
           </mat-form-field>
         </p>
       </div>
   
     <div class="productform-button">
-      <button mat-raised-button>Save</button>
+      <button mat-raised-button (click)="addNewProduct()">Save</button>
     </div>
     
   </div>
