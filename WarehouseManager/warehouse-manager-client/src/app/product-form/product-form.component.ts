@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Product } from '../product';
 import { PRODUCTS } from '../mock-products';
+import { PRODUCTTYPES } from '../product-type';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { ProductService } from '../product.service';
 export class ProductFormComponent implements OnInit {
 
   products = PRODUCTS;
+  productTypes = PRODUCTTYPES;
 
   productId = 6;
   productName: string = '';

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { RoutingModule } from './routing/routing.module';
 import { HttpClientModule }    from '@angular/common/http';
 
@@ -36,6 +36,7 @@ import { ProductFilterComponent } from './product-filter/product-filter.componen
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     RoutingModule,
     HttpClientModule,
   ],

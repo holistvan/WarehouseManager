@@ -9,7 +9,12 @@
         </p>
         <p>
           <mat-form-field>
-            <input matInput (change)="productType = $event.target.value" [value]="productType" placeholder="Product type">
+            <!--input matInput (change)="productType = $event.target.value" [value]="productType" placeholder="Product type"-->
+            <mat-select placeholder="Product type">
+                <mat-option *ngFor="let productType of productTypes" [value]="productType.type_name">
+                  {{productType.type_name}}
+                </mat-option>
+              </mat-select>
             <mat-hint>Kérem válasszon a termék típusok közül</mat-hint>
           </mat-form-field>
         </p>
