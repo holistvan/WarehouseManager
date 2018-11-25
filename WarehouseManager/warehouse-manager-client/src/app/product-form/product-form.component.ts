@@ -1,48 +1,38 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { Product } from '../product';
+import { Component } from '@angular/core';
+import { Product } from '../model/product';
 import { PRODUCTS } from '../mock-products';
-import { PRODUCTTYPES } from '../product-type';
-import { ProductService } from '../product.service';
+import { PRODUCTGROUPS } from '../mock-productgroups';
+import { PRODUCTTYPES } from '../mock-producttypes';
 
 @Component({
   selector: 'product-form',
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css']
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent {
 
   products = PRODUCTS;
+  productGroups = PRODUCTGROUPS;
   productTypes = PRODUCTTYPES;
 
-  productId = 6;
-  productName: string = '';
-  productType: string = '';
-  productGroup: number = 0;
-  quantityInStock: number = 1;
-  
-  newProduct: Product;
-  
-  // @Output()
-  // addSubmit: EventEmitter<Product> = new EventEmitter();
+  nextID = this.products.length + 1;
 
-  // @Input()
-  // productName: string;
-  // productType: string;
+  model = new Product(this.nextID, '', PRODUCTTYPES[0], PRODUCTGROUPS[0], 1);
+
+  submitted = false;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  addNewProduct() {
-    this.newProduct = new Product(
-                          this.productId, 
-                          this.productName, 
-                          this.productType, 
-                          this.productGroup, 
-                          this.quantityInStock);
-    
-    this.products.push(this.newProduct);
+  onSubmit() {
+    this.submitted = true;
+    this.products.push(this.model);
+  }
+
+  get diagnostic() { 
+    return JSON.stringify(this.model); 
   }
 
 }

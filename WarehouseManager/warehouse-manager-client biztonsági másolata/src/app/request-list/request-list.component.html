@@ -1,0 +1,24 @@
+<div class="request-list-container">
+    <div>
+      <div>
+        <h1 class="request-list-h1">My requests</h1>
+        <div class="request-filter">
+          <request-filter
+            (filterSubmit)="filter($event)"
+            [filterName]="'Request name'"
+          ></request-filter>
+        </div>
+        <div
+          *ngIf="submitted"
+          class="filtered-requests"
+        >
+          <h2>Találatok</h2>
+          <ul class="col-12">
+            <li
+              *ngFor="let request of filteredRequests"
+            >{{ request.request_id }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

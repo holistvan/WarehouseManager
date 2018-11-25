@@ -31,11 +31,11 @@ const routes: Routes = [
     component: RequestFormComponent
   },
   {
-    path: 'products/:id',
+    path: 'products/:product_id',
     component: ProductDetailComponent
   },
   {
-    path: 'requests/:id',
+    path: 'requests/:request_id',
     component: RequestDetailComponent
   },
 ];

@@ -1,0 +1,23 @@
+<div class="product-list-container">
+    <div>
+      <div>
+        <h1 class="product-list-h1">Products</h1>
+        <div class="product-filter">
+          <product-filter
+            (filterSubmit)="filter($event)"
+            [filterName]="'Product name'"
+          ></product-filter>
+        </div>
+        <div
+          *ngIf="submitted"
+          class="filtered-products"
+        >
+          <ul class="col-12">
+            <li
+              *ngFor="let product of filteredProducts"
+            >{{ product.product_name }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

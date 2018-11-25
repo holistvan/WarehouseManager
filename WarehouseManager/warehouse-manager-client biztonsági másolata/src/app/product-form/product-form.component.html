@@ -1,0 +1,33 @@
+<div class="productform-container">
+    <h1 class="product-form-h1">Add new product</h1>
+      <div class="productform-fields">
+        <p>
+          <mat-form-field>
+            <input matInput (change)="productName = $event.target.value" [value]="productName" placeholder="Product name">
+            <mat-hint>Kérem adja meg a termék nevét</mat-hint>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field>
+            <!--input matInput (change)="productType = $event.target.value" [value]="productType" placeholder="Product type"-->
+            <mat-select placeholder="Product type">
+                <mat-option *ngFor="let productType of productTypes" [value]="productType.type_name">
+                  {{productType.type_name}}
+                </mat-option>
+              </mat-select>
+            <mat-hint>Kérem válasszon a termék típusok közül</mat-hint>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field>
+            <input type="number" min="1" matInput (change)="quantityInStock = $event.target.value" [value]="quantityInStock" placeholder="Quantity in stock">
+            <mat-hint>Kérem adja meg a jelenleg raktáron lévő mennyiséget</mat-hint>
+          </mat-form-field>
+        </p>
+      </div>
+  
+    <div class="productform-button">
+      <button mat-raised-button (click)="addNewProduct()">Save</button>
+    </div>
+    
+  </div>

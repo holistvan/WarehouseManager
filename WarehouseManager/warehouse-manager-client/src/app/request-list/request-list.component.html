@@ -1,24 +1,31 @@
 <div class="request-list-container">
+  <div>
     <div>
-      <div>
-        <h1 class="request-list-h1">My requests</h1>
+      <h1 class="request-list-h1">ALL REQUESTS</h1>
         <div class="request-filter">
-          <request-filter
-            (filterSubmit)="filter($event)"
-            [filterName]="'Request name'"
-          ></request-filter>
+          <request-filter (filterSubmit)="filter($event)" [filterName]="'Request name'"></request-filter>
         </div>
-        <div
-          *ngIf="submitted"
-          class="filtered-requests"
-        >
-          <h2>Találatok</h2>
-          <ul class="col-12">
-            <li
-              *ngFor="let request of filteredRequests"
-            >{{ request.request_id }}</li>
+
+        <div *ngIf="!submitted" class="col-12">
+          <ul>
+            <li *ngFor="let request of requests" (click)="onSelect(request)">
+              <a [routerLink]="'/requests/' + request.request_id">
+                {{ request.request_id }} - {{ request.user.user_name }} - {{ request.product.product_name }} - {{ request.ordered_amount }}
+              </a>
+            </li>
           </ul>
         </div>
+
+        <div *ngIf="submitted" class="filtered-requests">
+          <ul>
+            <li *ngFor="let request of filteredRequests">
+              <a [routerLink]="'/requests/' + request.request_id">
+                {{ request.request_id }} - {{ request.user.user_name }} - {{ request.product.product_name }} - {{ request.ordered_amount }}
+              </a>
+            </li>
+          </ul>
+        </div>
+
       </div>
     </div>
-  </div>
+</div>

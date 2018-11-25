@@ -1,39 +1,69 @@
-<div class="productform-container">
-    <h1 class="product-form-h1">Add new product</h1>
-      <div class="productform-fields">
-        <p>
-          <mat-form-field>
-            <input matInput (change)="productName = $event.target.value" [value]="productName" placeholder="Product name">
-            <mat-hint>Kérem adja meg a termék nevét</mat-hint>
-          </mat-form-field>
-        </p>
-        <p>
-          <mat-form-field>
-            <!--input matInput (change)="productType = $event.target.value" [value]="productType" placeholder="Product type"-->
-            <mat-select placeholder="Product type">
-                <mat-option *ngFor="let productType of productTypes" [value]="productType.type_name">
-                  {{productType.type_name}}
-                </mat-option>
-              </mat-select>
-            <mat-hint>Kérem válasszon a termék típusok közül</mat-hint>
-          </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field>
-              <input matInput (change)="productGroup = $event.target.value" [value]="productGroup" placeholder="Product group">
-              <mat-hint>Kérem válasszon a termékcsoportok közül</mat-hint>
-            </mat-form-field>
-          </p>
-        <p>
-          <mat-form-field>
-            <input type="number" min="1" matInput (change)="quantityInStock = $event.target.value" [value]="quantityInStock" placeholder="Quantity in stock">
-            <mat-hint>Kérem adja meg a jelenleg raktáron lévő mennyiséget</mat-hint>
-          </mat-form-field>
-        </p>
+{{diagnostic}}
+
+<div class="form-group">
+  <div [hidden]="submitted">
+    <h1>ADD NEW PRODUCT</h1>
+    <form (ngSubmit)="onSubmit()" #productForm="ngForm">
+      <div class="form-group">
+        <label for="product_name">Product name</label>
+        <input id="product_name" name="product_name" class="form-control" type="text"
+          required minlength="10"
+          [(ngModel)]="model.product_name" #product_name="ngModel">
+        <div *ngIf="product_name.invalid && (product_name.dirty || product_name.touched)"
+          class="alert alert-danger">
+          <div *ngIf="product_name.errors.required">
+            Name is required.
+          </div>
+          <div *ngIf="product_name.errors.minlength">
+            Name must be at least 10 characters long.
+          </div>      
+        </div>
       </div>
-  
-    <div class="productform-button">
-      <button mat-raised-button (click)="addNewProduct()">Save</button>
-    </div>
-    
+
+      <div class="form-group">
+        <label for="product_type">Product Type</label>
+        <select id="product_type" name="product_type" class="form-control" 
+          required
+          [(ngModel)]="model.product_type" #product_type="ngModel">
+          <option *ngFor="let productType of productTypes" [value]="productType">
+            {{productType.product_type_name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="product_group">Product Group</label>
+        <select id="product_group" name="product_group" class="form-control"  
+          required
+          [(ngModel)]="model.product_group" #product_group="ngModel"        >
+          <option *ngFor="let productGroup of productGroups" [value]="productGroup">
+            {{productGroup.product_group_name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="quantity_in_stock">Quantity In Stock</label>
+        <input id="quantity_in_stock" name="quantity_in_stock" class="form-control" type="number"
+          required min="1" max="1000"
+          [(ngModel)]="model.quantity_in_stock" #quantity_in_stock="ngModel">
+        <div *ngIf="quantity_in_stock.invalid && (quantity_in_stock.dirty || quantity_in_stock.touched)"
+          class="alert alert-danger">
+          <div *ngIf="quantity_in_stock.errors.required">
+            Quantity in stock is required.
+          </div>
+          <div *ngIf="quantity_in_stock.errors.min">
+            Quantity in stock must be at least 1.
+          </div>  
+          <div *ngIf="quantity_in_stock.errors.max">
+            Quantity in stock must be up to 1000.
+          </div>     
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success" 
+      [disabled]="!productForm.form.valid">Submit</button>
+
+    </form>
   </div>
+</div>

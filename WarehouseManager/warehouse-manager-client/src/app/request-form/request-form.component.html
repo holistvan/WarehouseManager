@@ -1,27 +1,53 @@
-<div class="requestform-container">
-  <h1 class="request-form-h1">Create new request</h1>
-    <div class="requestform-fields">
-      <p>
-        <mat-form-field>
-          <input matInput placeholder="Username">
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field>
-          <input matInput placeholder="Product Name">
-          <mat-hint>Kérem válasszon az elérhető termékek közül</mat-hint>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field>
-          <input type="number" min="0" max="100" matInput placeholder="Ordered Amount">
-          <mat-hint>Kérem adja meg a rendelt mennyiséget</mat-hint>
-        </mat-form-field>
-      </p>
-    </div>
+{{diagnostic}}
 
-  <div class="requestform-button">
-    <button mat-raised-button>Save</button>
+<div class="form-group">
+  <div [hidden]="submitted">
+    <h1>CREATE NEW REQUEST</h1>
+    <form (ngSubmit)="onSubmit()" #requestForm="ngForm">
+      <div class="form-group">
+        <label for="user">User name</label>
+        <select id="user" name="user" class="form-control" 
+          required
+          [(ngModel)]="model.user" #user="ngModel">
+          <option *ngFor="let user of users" [value]="user">
+            {{user.user_name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="product">Product name</label>
+        <select id="product" name="product" class="form-control"  
+          required
+          [(ngModel)]="model.product" #product="ngModel"        >
+          <option *ngFor="let product of products" [value]="product">
+            {{product.product_name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="ordered_amount">Ordered Amount</label>
+        <input id="ordered_amount" name="ordered_amount" class="form-control" type="number"
+          required min="1" max="1000"
+          [(ngModel)]="model.ordered_amount" #ordered_amount="ngModel">
+        <div *ngIf="ordered_amount.invalid && (ordered_amount.dirty || ordered_amount.touched)"
+          class="alert alert-danger">
+          <div *ngIf="ordered_amount.errors.required">
+            Quantity in stock is required.
+          </div>
+          <div *ngIf="ordered_amount.errors.min">
+            Quantity in stock must be at least 1.
+          </div>  
+          <div *ngIf="ordered_amount.errors.max">
+            Quantity in stock must be up to 1000.
+          </div>     
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success" 
+      [disabled]="!requestForm.form.valid">Submit</button>
+
+    </form>
   </div>
-  
 </div>

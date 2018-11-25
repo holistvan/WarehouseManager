@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { RoutingModule } from './routing/routing.module';
-import { HttpClientModule }    from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -38,9 +38,11 @@ import { ProductFilterComponent } from './product-filter/product-filter.componen
     MatInputModule,
     MatSelectModule,
     RoutingModule,
-    HttpClientModule,
+    FormsModule,
   ],
-  providers: [ProductService],
+  providers: [
+    ProductService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

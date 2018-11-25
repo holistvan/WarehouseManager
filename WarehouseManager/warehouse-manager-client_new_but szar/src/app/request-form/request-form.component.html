@@ -1,0 +1,24 @@
+<div class="container">
+    <h1>Create new request</h1>
+    <form>
+      <div class="form-group">
+        <label for="user_id">User ID</label>
+        <input type="number" class="form-control" id="user_id" required>
+      </div>
+ 
+      <div class="form-group">
+        <label for="product_id">Product ID</label>
+        <select class="form-control" id="product_id" required>
+          <option *ngFor="let product of products" [value]="product">{{product.product_id}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="ordered_amount">Ordered Amount</label>
+        <input type="number" class="form-control" id="ordered_amount" required>
+      </div>
+ 
+      <button type="submit" class="btn btn-success">Submit</button>
+ 
+    </form>
+</div>
