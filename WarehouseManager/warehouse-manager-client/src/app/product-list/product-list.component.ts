@@ -1,51 +1,49 @@
 import { Component, OnInit } from '@angular/core';
+
 import { ProductService } from '../product.service';
-import { PRODUCTS } from '../mock-products';
+import { Request } from '../model/request';
 import { Product } from '../model/product';
+import { User } from '../model/user';
 
 @Component({
   selector: 'product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  providers: [ProductService],
 })
 export class ProductListComponent implements OnInit {
 
-  products = PRODUCTS;
-  selectedProduct : Product;
+  requests: Request[];
+  products: Product[];
+  users: User[];
+
 
   filteredProducts: Product[];
   submitted: boolean = false;
 
   constructor(
-    public productService: ProductService
+    public productService: ProductService,
   ) { }
 
   ngOnInit() {
+    this.getAllProducts();
   }
 
   ngOnDestroy() {
   }
 
-  getAllProducts(): Product[] {
-    return this.products;
+  getAllProducts(): void {
+    this.productService.getAllProducts()
+      .subscribe(products => this.products = products);
   }
 
   filter(filterText: string) {
 
-    this.filteredProducts = [];
+    this.filteredProducts = this.productService.getFilteredProducts(filterText);
 
-    for(let product of this.products) {
-        
-      if( product.product_name.toLowerCase().includes(filterText) || product.product_name.includes(filterText) ) {
-          this.filteredProducts.push(product);
-      }
-    }
-
-    if (this.filteredProducts.length == 0) {
-      alert("Rendszerünkben nem található a keresési feltételeknek megfelelő termék.");
+    if( this.filteredProducts.length == 0 ) {
+      alert("Rendszerünkben nem található a keresési feltételeknek megfelelő regisztráció.");
     } else {
       this.submitted = true;
-    }    
+    }   
   }
 }

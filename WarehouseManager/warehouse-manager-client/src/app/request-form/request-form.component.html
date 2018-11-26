@@ -3,13 +3,13 @@
 <div class="form-group">
   <div [hidden]="submitted">
     <h1>CREATE NEW REQUEST</h1>
-    <form (ngSubmit)="onSubmit()" #requestForm="ngForm">
+    <form (ngSubmit)="onSubmit(requestForm)" #requestForm="ngForm">
       <div class="form-group">
         <label for="user">User name</label>
         <select id="user" name="user" class="form-control" 
           required
           [(ngModel)]="model.user" #user="ngModel">
-          <option *ngFor="let user of users" [value]="user">
+          <option *ngFor="let user of users" [value]="user.user_name">
             {{user.user_name}}
           </option>
         </select>
@@ -20,7 +20,7 @@
         <select id="product" name="product" class="form-control"  
           required
           [(ngModel)]="model.product" #product="ngModel"        >
-          <option *ngFor="let product of products" [value]="product">
+          <option *ngFor="let product of products" [value]="product.product_name">
             {{product.product_name}}
           </option>
         </select>
@@ -45,8 +45,9 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-success" 
-      [disabled]="!requestForm.form.valid">Submit</button>
+      <button type="submit" class="btn btn-success"  [disabled]="!requestForm.form.valid">
+        Submit
+      </button>
 
     </form>
   </div>

@@ -3,40 +3,40 @@
 <div class="form-group">
   <div [hidden]="submitted">
     <h1>ADD NEW PRODUCT</h1>
-    <form (ngSubmit)="onSubmit()" #productForm="ngForm">
+    <form (ngSubmit)="onSubmit(productForm)" #productForm="ngForm">
       <div class="form-group">
-        <label for="product_name">Product name</label>
-        <input id="product_name" name="product_name" class="form-control" type="text"
+        <label for="product">Product name</label>
+        <input id="product" name="product" class="form-control" type="text"
           required minlength="10"
-          [(ngModel)]="model.product_name" #product_name="ngModel">
-        <div *ngIf="product_name.invalid && (product_name.dirty || product_name.touched)"
+          [(ngModel)]="model.product" #product="ngModel">
+        <div *ngIf="product.invalid && (product.dirty || product.touched)"
           class="alert alert-danger">
-          <div *ngIf="product_name.errors.required">
+          <div *ngIf="product.errors.required">
             Name is required.
           </div>
-          <div *ngIf="product_name.errors.minlength">
+          <div *ngIf="product.errors.minlength">
             Name must be at least 10 characters long.
           </div>      
         </div>
       </div>
 
       <div class="form-group">
-        <label for="product_type">Product Type</label>
-        <select id="product_type" name="product_type" class="form-control" 
+        <label for="producttype">Product Type</label>
+        <select id="producttype" name="producttype" class="form-control" 
           required
-          [(ngModel)]="model.product_type" #product_type="ngModel">
-          <option *ngFor="let productType of productTypes" [value]="productType">
+          [(ngModel)]="model.producttype" #producttype="ngModel">
+          <option *ngFor="let productType of producttypes" [value]="productType.product_type_name">
             {{productType.product_type_name}}
           </option>
         </select>
       </div>
 
       <div class="form-group">
-        <label for="product_group">Product Group</label>
-        <select id="product_group" name="product_group" class="form-control"  
+        <label for="productgroup">Product Group</label>
+        <select id="productgroup" name="productgroup" class="form-control"  
           required
-          [(ngModel)]="model.product_group" #product_group="ngModel"        >
-          <option *ngFor="let productGroup of productGroups" [value]="productGroup">
+          [(ngModel)]="model.productgroup" #productgroup="ngModel"        >
+          <option *ngFor="let productGroup of productgroups" [value]="productGroup.product_group_name">
             {{productGroup.product_group_name}}
           </option>
         </select>

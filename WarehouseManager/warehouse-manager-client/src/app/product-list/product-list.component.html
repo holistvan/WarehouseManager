@@ -14,9 +14,8 @@
           <ul>
             <li *ngFor="let product of products" (click)="onSelect(product)">
               <a [routerLink]="'/products/' + product.product_id">
-                {{ product.product_name }}
+                {{product.product_id}} - {{ product.product_name }}
               </a>
-              <product-detail [product]="selectedProduct"></product-detail>
             </li>
           </ul>
         </div>
