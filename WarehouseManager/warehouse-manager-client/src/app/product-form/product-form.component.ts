@@ -1,99 +1,69 @@
 import { Component, OnInit } from '@angular/core';
 
 import { User } from '../model/user';
-import { Product } from '../model/product';
-import { Request } from '../model/request';
-import { ProductType } from '../model/producttype';
-import { ProductGroup } from '../model/productgroup';
-
 import { UserService } from '../user.service';
+
+import { Product } from '../model/product';
 import { ProductService } from '../product.service';
+
+import { Request } from '../model/request';
 import { RequestService } from '../request.service';
-import { ProducttypeService } from '../producttype.service';
+
+import { ProductGroup } from '../model/productgroup';
 import { ProductgroupService } from '../productgroup.service';
 
 @Component({
   selector: 'product-form',
   templateUrl: './product-form.component.html',
-  styleUrls: ['./product-form.component.css']
+  styleUrls: ['./product-form.component.css'],
 })
-export class ProductFormComponent {
+export class ProductFormComponent implements OnInit {
 
-  productType: ProductType;
   productGroup: ProductGroup;
   product: Product;
 
   users: User[];
   products: Product[];
   requests: Request[];
-  producttypes: ProductType[];
   productgroups: ProductGroup[];
 
   nextID = this.productService.getSize() + 1;
 
   model = new Product(this.nextID,
-                      this.productService.getAllProducts()[0],
-                      this.productTypeService.getAllProductTypes()[0],
-                      this.productGroupService.getAllProductGroups()[0],
+                      this.productService.getAllProducts()[0].product_name,
+                      this.productService.getAllProducts()[0].product_type,
+                      this.groupService.getAllGroups()[0],
                       1);
 
   submitted = false;
 
   constructor(
-    private requestService: RequestService,
-    private userService: UserService,
-    private productService: ProductService,
-    private productTypeService: ProducttypeService,
-    private productGroupService: ProductgroupService,
+    public requestService: RequestService,
+    public userService: UserService,
+    public productService: ProductService,
+    public groupService: ProductgroupService,
   ) { }
 
   ngOnInit() {
-    this.getAllRequests();
-    this.getAllUsers();
-    this.getAllProducts();
-    this.getAllProductGroups();
-    this.getAllProductTypes();
+    this.requestService.requestRequests();
+    this.userService.requestUsers();
+    this.productService.requestProducts();
+    this.groupService.requestGroups();
   }
 
   onSubmit(form) {
 
     this.submitted = true;
 
-    this.productType = this.productService.getProductType(form.value.producttype);
-    this.productGroup = this.productService.getProductGroup(form.value.productgroup);
+    this.productGroup = this.groupService.getGroup(form.value.productgroup);
 
     this.model = new Product( this.nextID,
                               form.value.product,
-                              this.productType,
+                              form.value.producttype,
                               this.productGroup,
                               form.value.quantity_in_stock);
     
     this.products.push(this.model);
-  }
-
-  getAllUsers(): void {
-    this.userService.getAllUsers()
-      .subscribe(users => this.users = users);
-  }
-
-  getAllProducts(): void {
-    this.productService.getAllProducts()
-      .subscribe(products => this.products = products);
-  }
-
-  getAllRequests(): void {
-    this.requestService.getAllRequests()
-      .subscribe(requests => this.requests = requests);
-  }
-
-  getAllProductTypes(): void {
-    this.productTypeService.getAllProductTypes()
-      .subscribe(producttypes => this.producttypes = producttypes);
-  }
-
-  getAllProductGroups(): void {
-    this.productGroupService.getAllProductGroups()
-      .subscribe(productgroups => this.productgroups = productgroups);
   }
 
   get diagnostic() { 

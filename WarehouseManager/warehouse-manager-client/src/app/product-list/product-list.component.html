@@ -13,8 +13,8 @@
         <div *ngIf="!submitted" class="col-12">
           <ul>
             <li *ngFor="let product of products" (click)="onSelect(product)">
-              <a [routerLink]="'/products/' + product.product_id">
-                {{product.product_id}} - {{ product.product_name }}
+              <a [routerLink]="'/products/' + product.productID">
+                {{product.productID}} - {{ product.productName }}
               </a>
             </li>
           </ul>
@@ -23,8 +23,8 @@
         <div *ngIf="submitted" class="filtered-products">
           <ul>
             <li *ngFor="let product of filteredProducts">
-              <a [routerLink]="'/products/' + product.product_id">
-                {{ product.product_name }}
+              <a [routerLink]="'/products/' + product.productID">
+                {{product.productID}} - {{ product.productName }}
               </a>
             </li>
           </ul>

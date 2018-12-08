@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { RoutingModule } from './routing/routing.module';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +16,9 @@ import { RequestDetailComponent } from './request-detail/request-detail.componen
 import { RequestFilterComponent } from './request-filter/request-filter.component';
 import { ProductService } from './product.service';
 import { ProductFilterComponent } from './product-filter/product-filter.component';
+import { UserService } from './user.service';
+import { RequestService } from './request.service';
+import { ProductgroupService } from './productgroup.service';
 
 @NgModule({
   declarations: [
@@ -39,9 +43,13 @@ import { ProductFilterComponent } from './product-filter/product-filter.componen
     MatSelectModule,
     RoutingModule,
     FormsModule,
+    HttpClientModule,
   ],
   providers: [
     ProductService,
+    UserService,
+    RequestService,
+    ProductgroupService,
   ],
   bootstrap: [AppComponent]
 })

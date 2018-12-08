@@ -1,26 +1,67 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 import { ProductGroup } from './model/productgroup';
-import { PRODUCTGROUPS } from './mock-productgroups';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductgroupService {
 
-  constructor() { }
+  private groups: ProductGroup[];
 
-  getAllProductGroups(): Observable<ProductGroup[]> {
-    return of(PRODUCTGROUPS);
+  private filteredGroups: ProductGroup[];
+
+  constructor(
+    private httpClient: HttpClient
+  ) { }
+
+  requestGroups(){
+    this.httpClient
+      .get<ProductGroup[]>('/api/groups')
+      .toPromise()
+      .then(data =>
+          this.groups = data);
   }
 
-  getProductGroup( filterText: string ): ProductGroup {
+  getAllGroups(): Observable<ProductGroup[]> {
+    return of(this.groups);
+  }
+
+  getGroupById(groupID: number): Observable<ProductGroup> {
+    for( let group of this.groups ) {
+      if( group.product_group_id == groupID ) {
+        return of(group);
+      }
+    }
+  }
+
+  // visszaadja a termékek tömb méretét
+  getSize(): number{
+    return this.groups.length;
+  }
+
+  // visszaadja a szűrt termékek tömb tartalmát
+  getFilteredProducts( filterText: string ): Observable<ProductGroup[]> {
+
+    this.filteredGroups = [];
+
+    for( let group of this.groups ) {
+      if( group.product_group_name.toLowerCase().includes(filterText) || 
+          group.product_group_name.toUpperCase().includes(filterText) ) {
+            this.filteredGroups.push(group);
+      }
+    }
     
-    for( let productgroup of PRODUCTGROUPS ) {
-      if( productgroup.product_group_name.includes(filterText) || 
-          productgroup.product_group_name.includes(filterText) ) {
-            return productgroup;
+    return of(this.filteredGroups);
+  }
+
+  getGroup(filterName: string) {
+    for( let group of this.groups ) {
+      if( group.product_group_name.toLowerCase().includes(filterName) || 
+          group.product_group_name.toUpperCase().includes(filterName) ) {
+            return group;
       }
     }
   }

@@ -20,8 +20,8 @@ export class ProductDetailComponent implements OnInit {
     private route: ActivatedRoute,
   ) { }
 
-  ngOnInit() {
-    this.product_id = this.route.snapshot.params.product_id;
-    this.product = this.productService.getProductById(this.product_id);
+  async ngOnInit() {
+    this.product_id = await this.route.snapshot.params.product_id;
+    this.product = await this.productService.getProduct(this.product_id);
   }
 }

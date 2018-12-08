@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
-@Secured({ "ROLE_USER", "ROLE_ADMIN" })
+// @Secured({ "ROLE_USER", "ROLE_ADMIN" })
 public class UserController {
 
     @Autowired

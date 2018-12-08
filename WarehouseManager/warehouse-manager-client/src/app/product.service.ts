@@ -1,85 +1,54 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
-import { Request } from './model/request';
-import { User } from './model/user';
 import { Product } from './model/product';
-import { ProductType } from './model/producttype';
 import { ProductGroup } from './model/productgroup';
 
-import { REQUESTS } from './mock-requests';
-import { USERS } from './mock-users';
-import { PRODUCTS } from './mock-products';
-import { PRODUCTTYPES } from './mock-producttypes';
-import { PRODUCTGROUPS } from './mock-productgroups';
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ProductService {
 
-  filteredProducts: Product[];
-  selectedProduct: Product;
+  products: Product[] = [];
+  groups: ProductGroup[] = [];
 
-  constructor() { }
+  constructor(
+    private httpClient: HttpClient,
+  ) {}
 
+  // visszaadja a termékek tömb méretét
   getSize(): number{
-    return PRODUCTS.length;
+    return this.products.length;
   }
 
-  getAllProducts(): Observable<Product[]> {
-    return of(PRODUCTS);
+  // lekéri a szerverről az összes terméket
+  requestProducts(){
+    this.httpClient
+      .get<Product[]>('/api/products')
+      .toPromise()
+      .then(data =>
+          this.products = data);
   }
 
-  getFilteredProducts( filterText: string ): Product[] {
-
-    this.filteredProducts = [];
-
-    for( let product of PRODUCTS ) {
-        
-      if( product.product_name.toLowerCase().includes(filterText) || 
-          product.product_name.toUpperCase().includes(filterText) ) {
-          
-            this.filteredProducts.push(product);
-      }
-    }
-    
-    return this.filteredProducts;
+  // visszaadja a termékeket tartalmazó tömböt
+  getAllProducts(): Promise<Product[]> {
+    return this.httpClient
+    .get<Product[]>('/api/products')
+    .toPromise()
+    .then(data =>
+        this.products = data);
   }
 
-  getProductById( filterNumber: number ): Product {
-    for( let product of PRODUCTS ) {
-        
-      if( product.product_id == filterNumber ) {
-        return product;
-      }
-    }
-  }
+  async getProduct(productID: number): Promise<Product> {
+    const product = await this.products.find(
+      product => product.productID === productID
+    );
 
-  getProduct( filterText: string ): Product {
-    
-    for( let product of PRODUCTS ) {
-      if( product.product_name.includes(filterText) ) {
-            return product;
-      }
-    }
-  }
-
-  getProductType( filterText: string ): ProductType {
-    
-    for( let producttype of PRODUCTTYPES ) {
-      if( producttype.product_type_name.includes(filterText) ) {
-            return producttype;
-      }
-    }
-  }
-
-  getProductGroup( filterText: string ): ProductGroup {
-    
-    for( let productgroup of PRODUCTGROUPS ) {
-      if( productgroup.product_group_name.includes(filterText) ) {
-            return productgroup;
-      }
+    if( product ) {
+      return Promise.resolve(product);
+    } else {
+      return this.httpClient
+        .get<Product>(`/api/products/${productID}`)
+        .toPromise()
+        .then(product => { return product });
     }
   }
 }

@@ -2,17 +2,17 @@
   <div class="row">
     <h1 class="col-12">Request details</h1>
     <ul class="col-12">
-      <div><span>Request ID: </span>{{request.request_id}}</div>
+      <div><span>Request ID: </span>{{request_id}}</div>
       
-      <div><span>User ID: </span>{{request.user.user_id}}</div>
-      <div><span>User name: </span>{{request.user.user_name}}</div>
+      <div><span>User ID: </span>{{request.owner.userID}}</div>
+      <div><span>User name: </span>{{request.owner.userName}}</div>
       
-      <div><span>Product ID: </span>{{request.product.product_id}}</div>
-      <div><span>Product name: </span>{{request.product.product_name}}</div>
-      <div><span>Product type name: </span>{{request.product.product_type.product_type_name}}</div>
-      <div><span>Product group name: </span>{{request.product.product_group.product_group_name}}</div>
+      <div><span>Product ID: </span>{{request.product.productID}}</div>
+      <div><span>Product name: </span>{{request.product.productName}}</div>
+      <div><span>Product type name: </span>{{request.product.productType}}</div>
+      <div><span>Product group name: </span>{{request.product.productGroup.groupName}}</div>
       
-      <div><span>Ordered amount: </span>{{request.ordered_amount}}</div>
+      <div><span>Ordered amount: </span>{{request.orderedAmount}}</div>
     </ul>
   </div>
 </div>

@@ -1,9 +1,9 @@
-<mat-form-field >
+<div>
   <input (change)="filterText = $event.target.value" [value]="filterText" placeholder="Keresési feltétel">
 <!--input
   [(ngModel)]="filterText"
   matInput
   [placeholder]="filterName"
 -->
-</mat-form-field>
+</div>
 <button mat-raised-button (click)="filter()" >Find</button>

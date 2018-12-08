@@ -1,49 +1,61 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
-import { Request } from './model/request';
 import { User } from './model/user';
-import { Product } from './model/product';
 
-import { REQUESTS } from './mock-requests';
-import { USERS } from './mock-users';
-import { PRODUCTS } from './mock-products';
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UserService {
 
-  filteredUsers: User[];
+  private users: User[];
+  private filteredUsers: User[];
 
-  constructor() { }
+  constructor(
+    private httpClient: HttpClient
+  ) { }
 
-  getAllUsers(): Observable<User[]> {
-    return of(USERS);
+  requestUsers(){
+    this.httpClient
+      .get<User[]>('/api/users')
+      .toPromise()
+      .then(data =>
+          this.users = data);
   }
 
-  getFilteredUsers( filterText: string ): User[] {
+  getAllUsers(): Observable<User[]> {
+    return of(this.users);
+  }  
+
+  getUserById(userID: number): Observable<User> {
+    for( let user of this.users ) {
+      if( user.userID == userID ) {
+        return of(user);
+      }
+    }
+  }
+
+  getSize(): number{
+    return this.users.length;
+  }
+
+  getFilteredUsers(filterText: string): Observable<User[]> {
 
     this.filteredUsers = [];
 
-    for( let user of USERS ) {
-        
-      if( user.user_name.toLowerCase().includes(filterText) || 
-          user.user_name.toUpperCase().includes(filterText) ) {
-          
+    for(let user of this.users) {
+      if( user.userName.toLowerCase().includes(filterText) || 
+          user.userName.toUpperCase().includes(filterText) ) {
             this.filteredUsers.push(user);
       }
     }
     
-    return this.filteredUsers;
+    return of(this.filteredUsers);
   }
 
-  getUser( filterText: string ): User {
-    for( let user of USERS ) {
-        
-      if( user.user_name.toLowerCase().includes(filterText) || 
-          user.user_name.toUpperCase().includes(filterText) ) {
-          
+  getUser(filterName: string): User {
+    for(let user of this.users) {
+      if( user.userName.toLowerCase().includes(filterName) || 
+          user.userName.toUpperCase().includes(filterName) ) {
             return user;
       }
     }

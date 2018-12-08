@@ -20,8 +20,8 @@ export class ProductFilterComponent implements OnInit {
   ngOnInit() {
   }
 
-  filter() {
-    this.filterSubmit.emit(this.filterText);
+  async filter() {
+    await this.filterSubmit.emit(this.filterText);
   }
 
 }

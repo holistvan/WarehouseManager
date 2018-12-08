@@ -1,55 +1,54 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 import { Request } from './model/request';
 import { User } from './model/user';
 import { Product } from './model/product';
 
-import { REQUESTS } from './mock-requests';
-import { USERS } from './mock-users';
-import { PRODUCTS } from './mock-products';
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class RequestService {
 
-  filteredRequests: Request[];
+  requests: Request[] = [];
+  users: User[] = [];
+  products: Product[] = [];
 
-  constructor() { }
+  constructor(
+    private httpClient: HttpClient,
+  ) { }
 
-  getSize(): number{
-    return REQUESTS.length;
+  getSize(): number {
+    return this.requests.length;
   }
 
-  getAllRequests(): Observable<Request[]> {
-    return of(REQUESTS);
+  requestRequests(){
+    this.httpClient
+      .get<Request[]>('/api/requests')
+      .toPromise()
+      .then(data =>
+          this.requests = data);
   }
 
-  getRequest( filterNumber: number ): Request {
-    for( let request of REQUESTS ) {
-        
-      if( request.request_id == filterNumber ) {
-        return request;
-      }
+  getAllRequests(): Promise<Request[]> {
+    return this.httpClient
+    .get<Request[]>('/api/requests')
+    .toPromise()
+    .then(data =>
+        this.requests = data);
+
+  }
+  
+  async getRequest(requestID: number): Promise<Request> {
+    const request = await this.requests.find(
+      request => request.requestID === requestID
+    );
+
+    if( request ) {
+      return Promise.resolve(request);
+    } else {
+      return this.httpClient
+        .get<Request>(`/api/requests/${requestID}`)
+        .toPromise()
+        .then(request => { return request });
     }
-  }
-
-  getFilteredRequests( filterText: string ): Request[] {
-
-    this.filteredRequests = [];
-
-    for( let request of REQUESTS ) {
-        
-      if( request.user.user_name.toLowerCase().includes(filterText) || 
-          request.user.user_name.toUpperCase().includes(filterText) ||
-          request.product.product_name.toLowerCase().includes(filterText) ||
-          request.product.product_name.toUpperCase().includes(filterText) ) {
-          
-            this.filteredRequests.push(request);
-      }
-    }
-    
-    return this.filteredRequests;
   }
 }

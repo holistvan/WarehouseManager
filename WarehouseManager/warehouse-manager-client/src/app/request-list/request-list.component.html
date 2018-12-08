@@ -9,8 +9,8 @@
         <div *ngIf="!submitted" class="col-12">
           <ul class="requests">
             <li *ngFor="let request of requests" (click)="onSelect(request)">
-              <a [routerLink]="'/requests/' + request.request_id">
-                {{ request.request_id }} - {{ request.product.product_name }}
+              <a [routerLink]="'/requests/' + request.requestID">
+                {{ request.requestID }} - {{ request.product.productName }}
               </a>
             </li>
           </ul>
@@ -19,8 +19,8 @@
         <div *ngIf="submitted" class="filtered-requests">
           <ul>
             <li *ngFor="let request of filteredRequests">
-              <a [routerLink]="'/requests/' + request.request_id">
-                {{ request.request_id }} - {{ request.user.user_name }} - {{ request.product.product_name }} - {{ request.ordered_amount }}
+              <a [routerLink]="'/requests/' + request.requestID">
+                {{ request.requestID }} - {{ request.owner.userName }} - {{ request.product.productName }} - {{ request.orderedAmount }}
               </a>
             </li>
           </ul>

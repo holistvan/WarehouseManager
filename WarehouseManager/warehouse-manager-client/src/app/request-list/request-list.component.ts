@@ -1,20 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { RequestService } from '../request.service';
 import { Request } from '../model/request';
-import { Product } from '../model/product';
-import { User } from '../model/user';
+
+import { RequestService } from '../request.service';
 
 @Component({
   selector: 'request-list',
   templateUrl: './request-list.component.html',
   styleUrls: ['./request-list.component.css'],
 })
+
 export class RequestListComponent implements OnInit, OnDestroy {
 
-  requests: Request[];
-  products: Product[];
-  users: User[];
+  requests: Request[] = [];
 
   filteredRequests: Request[];
   submitted: boolean = false;
@@ -23,20 +21,26 @@ export class RequestListComponent implements OnInit, OnDestroy {
     private requestService: RequestService,
   ) { }
 
-  ngOnInit() {
-    this.getAllRequests();
+  async ngOnInit() {
+    this.requests = await this.requestService.getAllRequests();
   }
 
   ngOnDestroy() {
   }
 
-  getAllRequests(): void {
-    this.requestService.getAllRequests()
-      .subscribe(requests => this.requests = requests);
-  }
 
   filter(filterText: string) {
-    this.filteredRequests = this.requestService.getFilteredRequests(filterText);
+
+    this.filteredRequests = [];
+
+    for( let request of this.requests ) {
+      if( request.owner.userName.toLowerCase().includes(filterText) || 
+          request.owner.userName.toUpperCase().includes(filterText) ||
+          request.product.productName.toLowerCase().includes(filterText) ||
+          request.product.productName.toUpperCase().includes(filterText) ) {
+            this.filteredRequests.push(request);
+      }
+    }
 
     if( this.filteredRequests.length == 0 ) {
       alert("Rendszerünkben nem található a keresési feltételeknek megfelelő regisztráció.");

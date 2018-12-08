@@ -21,9 +21,9 @@ export class RequestDetailComponent implements OnInit {
     private route: ActivatedRoute,
   ) { }
 
-  ngOnInit() {
-    this.request_id = this.route.snapshot.params.request_id;
-    this.request = this.requestService.getRequest(this.request_id);
-  }
+  async ngOnInit() {
 
+    this.request_id = await this.route.snapshot.params.request_id;
+    this.request = await this.requestService.getRequest(this.request_id);
+  }
 }
