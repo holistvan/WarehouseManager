@@ -1,7 +1,9 @@
 package hu.elte.WarehouseManager.controller;
 
 import hu.elte.WarehouseManager.model.Request;
+import hu.elte.WarehouseManager.repository.ProductRepository;
 import hu.elte.WarehouseManager.repository.RequestRepository;
+import hu.elte.WarehouseManager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,12 @@ public class RequestController {
 
     @Autowired
     private RequestRepository requestRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("")
     public Iterable<Request> getAll() {

@@ -52,7 +52,7 @@ public class ProductGroupController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<ProductGroup> create(@RequestBody ProductGroup productGroup) {
         if (productGroup.getGroupID() != null && productGroupRepository.existsById(productGroup.getGroupID())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();

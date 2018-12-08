@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { User } from '../model/user';
 import { UserService } from '../user.service';
@@ -10,6 +11,7 @@ import { Request } from '../model/request';
 import { RequestService } from '../request.service';
 
 import { ProductgroupService } from '../productgroup.service';
+import { ProductGroup } from '../model/productgroup';
 
 @Component({
   selector: 'request-form',
@@ -22,43 +24,45 @@ export class RequestFormComponent implements OnInit {
   user: User;
   product: Product;
 
-  users: User[];
-  products: Product[];
-  requests: Request[];
+  users: User[] = [];
+  products: Product[] = [];
+  requests: Request[] = [];
+  groups: ProductGroup[] = [];
 
-  nextID = this.requestService.getSize() + 1;
-
-  model = new Request(this.nextID,
-                      this.userService.getAllUsers()[0],
-                      this.productService.getAllProducts[0],
-                      1);
-
+  nextID: number;
+  model: Request;
   submitted = false;
 
   constructor(
-    public requestService: RequestService,
-    public userService: UserService,
-    public productService: ProductService,
-    public groupService: ProductgroupService,
+    private requestService: RequestService,
+    private userService: UserService,
+    private productService: ProductService,
+    private groupService: ProductgroupService,
   ) { }
 
-  ngOnInit() {
-    this.requestService.requestRequests();
-    this.userService.requestUsers();
-    this.productService.requestProducts();
-    this.groupService.requestGroups();
+  async ngOnInit() {
+    this.requests = await this.requestService.getAllRequests();
+    this.products = await this.productService.getAllProducts();
+    this.groups = await this.groupService.getAllGroups();
+    this.users = await this.userService.getAllUsers();
+  
+    this.model = new Request(this.nextID,
+      this.users[0],
+      this.products[0],
+      1);
   }
 
-  async onSubmit(form) {
+  async onSubmit(form: NgForm) {
 
     this.submitted = true;
-    this.user = this.userService.getUser(form.value.user);
+    this.user = await this.userService.getUser(form.value.user);
     this.product = await this.productService.getProduct(form.value.product);
+    this.nextID = this.requestService.getSize() + 1;
 
     this.model = new Request( this.nextID, 
                               this.user, 
                               this.product, 
-                              form.value.ordered_amount);
+                              form.value.orderedAmount);
     
     this.requests.push(this.model);
   }

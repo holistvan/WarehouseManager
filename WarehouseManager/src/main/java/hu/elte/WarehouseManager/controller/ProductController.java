@@ -3,6 +3,7 @@ package hu.elte.WarehouseManager.controller;
 import hu.elte.WarehouseManager.model.Product;
 import hu.elte.WarehouseManager.model.ProductGroup;
 import hu.elte.WarehouseManager.model.Request;
+import hu.elte.WarehouseManager.repository.ProductGroupRepository;
 import hu.elte.WarehouseManager.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,11 +16,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
-// @Secured({ "ROLE_USER", "ROLE_ADMIN" })
+@Secured({ "ROLE_ADMIN" })
 public class ProductController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private ProductGroupRepository productGroupRepository;
 
     @GetMapping("")
     public Iterable<Product> getAll() {
@@ -46,7 +50,7 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping("/products")
     public ResponseEntity<Product> create(@RequestBody Product product) {
         if (product.getProductID() != null && productRepository.existsById(product.getProductID())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();

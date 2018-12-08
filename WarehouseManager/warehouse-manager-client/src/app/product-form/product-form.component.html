@@ -4,58 +4,64 @@
   <div [hidden]="submitted">
     <h1>ADD NEW PRODUCT</h1>
     <form (ngSubmit)="onSubmit(productForm)" #productForm="ngForm">
+      
       <div class="form-group">
-        <label for="product">Product name</label>
-        <input id="product" name="product" class="form-control" type="text"
+        <label for="productName">Product name</label>
+        <input id="product" name="productName" class="form-control" type="text"
           required minlength="10"
-          [(ngModel)]="model.product" #product="ngModel">
-        <div *ngIf="product.invalid && (product.dirty || product.touched)"
+          [(ngModel)]="model.productName" #productName="ngModel">
+        <div *ngIf="productName.invalid && (productName.dirty || productName.touched)"
           class="alert alert-danger">
-          <div *ngIf="product.errors.required">
+          <div *ngIf="productName.errors.required">
             Name is required.
           </div>
-          <div *ngIf="product.errors.minlength">
+          <div *ngIf="productName.errors.minlength">
             Name must be at least 10 characters long.
           </div>      
         </div>
       </div>
 
       <div class="form-group">
-        <label for="producttype">Product Type</label>
-        <select id="producttype" name="producttype" class="form-control" 
-          required
-          [(ngModel)]="model.producttype" #producttype="ngModel">
-          <option *ngFor="let productType of producttypes" [value]="productType.product_type_name">
-            {{productType.product_type_name}}
-          </option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="productgroup">Product Group</label>
-        <select id="productgroup" name="productgroup" class="form-control"  
-          required
-          [(ngModel)]="model.productgroup" #productgroup="ngModel"        >
-          <option *ngFor="let productGroup of productgroups" [value]="productGroup.product_group_name">
-            {{productGroup.product_group_name}}
-          </option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="quantity_in_stock">Quantity In Stock</label>
-        <input id="quantity_in_stock" name="quantity_in_stock" class="form-control" type="number"
-          required min="1" max="1000"
-          [(ngModel)]="model.quantity_in_stock" #quantity_in_stock="ngModel">
-        <div *ngIf="quantity_in_stock.invalid && (quantity_in_stock.dirty || quantity_in_stock.touched)"
+        <label for="productType">Product type</label>
+        <input id="productType" name="productType" class="form-control" type="text"
+          required minlength="10"
+          [(ngModel)]="model.productType" #productType="ngModel">
+        <div *ngIf="productType.invalid && (productType.dirty || productType.touched)"
           class="alert alert-danger">
-          <div *ngIf="quantity_in_stock.errors.required">
+          <div *ngIf="productType.errors.required">
+            Type is required.
+          </div>
+          <div *ngIf="productType.errors.minlength">
+            Type must be at least 10 characters long.
+          </div>      
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="productGroup">Product Group</label>
+        <select id="productGroup" name="productGroup" class="form-control"  
+          required
+          [(ngModel)]="model.productGroup" #productGroup="ngModel"        >
+          <option *ngFor="let group of groups" [value]="group.groupID">
+            {{group.groupName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="quantity">Quantity In Stock</label>
+        <input id="quantity" name="quantity" class="form-control" type="number"
+          required min="1" max="1000"
+          [(ngModel)]="model.quantity" #quantity="ngModel">
+        <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
+          class="alert alert-danger">
+          <div *ngIf="quantity.errors.required">
             Quantity in stock is required.
           </div>
-          <div *ngIf="quantity_in_stock.errors.min">
+          <div *ngIf="quantity.errors.min">
             Quantity in stock must be at least 1.
           </div>  
-          <div *ngIf="quantity_in_stock.errors.max">
+          <div *ngIf="quantity.errors.max">
             Quantity in stock must be up to 1000.
           </div>     
         </div>

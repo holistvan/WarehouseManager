@@ -19,11 +19,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
-// @Secured({ "ROLE_USER", "ROLE_ADMIN" })
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    // @Autowired
+    // private AuthenticatedUser authenticatedUser;
 
     @Autowired
     private RequestRepository requestRepository;
@@ -34,6 +36,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    // @Secured({ "ROLE_USER" })
     public ResponseEntity<User> get(@PathVariable Integer id) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
@@ -42,6 +45,11 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    // @PostMapping("login")
+    // public ResponseEntity<User> login() {
+    //    return ResponseEntity.ok(authenticatedUser.getUser());
+    // }
 
     @GetMapping("/{id}/requests")
     public ResponseEntity<List<Request>> getUserRequests(@PathVariable Integer id) {

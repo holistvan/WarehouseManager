@@ -34,6 +34,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
     this.filteredProducts = [];
 
+    console.log(this.products);
+
     for( let product of this.products ) {
       if( product.productName.toLowerCase().includes(filterText) ||
           product.productName.toUpperCase().includes(filterText) ) {

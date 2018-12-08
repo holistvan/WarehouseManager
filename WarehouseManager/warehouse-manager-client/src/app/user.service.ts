@@ -7,11 +7,11 @@ import { User } from './model/user';
 @Injectable()
 export class UserService {
 
-  private users: User[];
-  private filteredUsers: User[];
+  users: User[];
+  filteredUsers: User[];
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
   ) { }
 
   requestUsers(){
@@ -22,15 +22,26 @@ export class UserService {
           this.users = data);
   }
 
-  getAllUsers(): Observable<User[]> {
-    return of(this.users);
-  }  
+  getAllUsers(): Promise<User[]> {
+    return this.httpClient
+    .get<User[]>('/api/users')
+    .toPromise()
+    .then(data =>
+        this.users = data);
+  }
 
-  getUserById(userID: number): Observable<User> {
-    for( let user of this.users ) {
-      if( user.userID == userID ) {
-        return of(user);
-      }
+  async getUser(userID: number): Promise<User> {
+    const user = await this.users.find(
+      user => user.userID === userID
+    );
+
+    if( user ) {
+      return Promise.resolve(user);
+    } else {
+      return this.httpClient
+        .get<User>(`/api/users/${userID}`)
+        .toPromise()
+        .then(user => { return user });
     }
   }
 
@@ -50,14 +61,5 @@ export class UserService {
     }
     
     return of(this.filteredUsers);
-  }
-
-  getUser(filterName: string): User {
-    for(let user of this.users) {
-      if( user.userName.toLowerCase().includes(filterName) || 
-          user.userName.toUpperCase().includes(filterName) ) {
-            return user;
-      }
-    }
   }
 }

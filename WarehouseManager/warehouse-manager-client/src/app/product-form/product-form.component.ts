@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { User } from '../model/user';
 import { UserService } from '../user.service';
@@ -17,53 +18,57 @@ import { ProductgroupService } from '../productgroup.service';
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css'],
 })
+
 export class ProductFormComponent implements OnInit {
 
   productGroup: ProductGroup;
   product: Product;
 
-  users: User[];
-  products: Product[];
-  requests: Request[];
-  productgroups: ProductGroup[];
+  users: User[] = [];
+  products: Product[] = [];
+  requests: Request[] = [];
+  groups: ProductGroup[] = [];
 
-  nextID = this.productService.getSize() + 1;
-
-  model = new Product(this.nextID,
-                      this.productService.getAllProducts()[0].product_name,
-                      this.productService.getAllProducts()[0].product_type,
-                      this.groupService.getAllGroups()[0],
-                      1);
-
+  nextID: number;
+  model: Product;
   submitted = false;
 
   constructor(
-    public requestService: RequestService,
-    public userService: UserService,
-    public productService: ProductService,
-    public groupService: ProductgroupService,
+    private requestService: RequestService,
+    private userService: UserService,
+    private productService: ProductService,
+    private groupService: ProductgroupService,
   ) { }
 
-  ngOnInit() {
-    this.requestService.requestRequests();
-    this.userService.requestUsers();
-    this.productService.requestProducts();
-    this.groupService.requestGroups();
+  async ngOnInit() {
+    this.products = await this.productService.getAllProducts();
+    this.users = await this.userService.getAllUsers();
+    this.groups = await this.groupService.getAllGroups();
+    this.requests = await this.requestService.getAllRequests();
+
+    this.model = new Product(this.nextID,
+      "",
+      "",
+      this.groups[0],
+      1);
   }
 
-  onSubmit(form) {
+  async onSubmit(form: NgForm) {
 
     this.submitted = true;
 
-    this.productGroup = this.groupService.getGroup(form.value.productgroup);
+    console.log("onSubmit(form)");
+    this.productGroup = await this.groupService.getGroup(form.value.productGroup);
+
+    this.nextID = this.productService.getSize() + 1;
 
     this.model = new Product( this.nextID,
-                              form.value.product,
-                              form.value.producttype,
+                              form.value.productName,
+                              form.value.productType,
                               this.productGroup,
-                              form.value.quantity_in_stock);
+                              form.value.quantity);
     
-    this.products.push(this.model);
+    await this.productService.addProduct(this.model);
   }
 
   get diagnostic() { 

@@ -9,12 +9,12 @@ import { ProductGroup } from './model/productgroup';
 })
 export class ProductgroupService {
 
-  private groups: ProductGroup[];
+  groups: ProductGroup[];
 
-  private filteredGroups: ProductGroup[];
+  filteredGroups: ProductGroup[];
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
   ) { }
 
   requestGroups(){
@@ -25,15 +25,26 @@ export class ProductgroupService {
           this.groups = data);
   }
 
-  getAllGroups(): Observable<ProductGroup[]> {
-    return of(this.groups);
+  getAllGroups(): Promise<ProductGroup[]> {
+    return this.httpClient
+    .get<ProductGroup[]>('/api/groups')
+    .toPromise()
+    .then(data =>
+        this.groups = data);
   }
 
-  getGroupById(groupID: number): Observable<ProductGroup> {
-    for( let group of this.groups ) {
-      if( group.product_group_id == groupID ) {
-        return of(group);
-      }
+  async getGroup(groupID: number): Promise<ProductGroup> {
+    const group = await this.groups.find(
+      group => group.groupID === groupID
+    );
+
+    if( group ) {
+      return Promise.resolve(group);
+    } else {
+      return this.httpClient
+        .get<ProductGroup>(`/api/groups/${groupID}`)
+        .toPromise()
+        .then(group => { return group });
     }
   }
 
@@ -48,21 +59,12 @@ export class ProductgroupService {
     this.filteredGroups = [];
 
     for( let group of this.groups ) {
-      if( group.product_group_name.toLowerCase().includes(filterText) || 
-          group.product_group_name.toUpperCase().includes(filterText) ) {
+      if( group.groupName.toLowerCase().includes(filterText) || 
+          group.groupName.toUpperCase().includes(filterText) ) {
             this.filteredGroups.push(group);
       }
     }
     
     return of(this.filteredGroups);
-  }
-
-  getGroup(filterName: string) {
-    for( let group of this.groups ) {
-      if( group.product_group_name.toLowerCase().includes(filterName) || 
-          group.product_group_name.toUpperCase().includes(filterName) ) {
-            return group;
-      }
-    }
   }
 }

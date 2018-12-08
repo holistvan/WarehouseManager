@@ -9,8 +9,8 @@
         <select id="user" name="user" class="form-control" 
           required
           [(ngModel)]="model.user" #user="ngModel">
-          <option *ngFor="let user of users" [value]="user.user_name">
-            {{user.user_name}}
+          <option *ngFor="let user of users" [value]="user.userID">
+            {{user.userName}}
           </option>
         </select>
       </div>
@@ -20,27 +20,27 @@
         <select id="product" name="product" class="form-control"  
           required
           [(ngModel)]="model.product" #product="ngModel"        >
-          <option *ngFor="let product of products" [value]="product.product_name">
-            {{product.product_name}}
+          <option *ngFor="let product of products" [value]="product.productID">
+            {{product.productName}}
           </option>
         </select>
       </div>
 
       <div class="form-group">
-        <label for="ordered_amount">Ordered Amount</label>
-        <input id="ordered_amount" name="ordered_amount" class="form-control" type="number"
+        <label for="orderedAmount">Ordered Amount</label>
+        <input id="orderedAmount" name="orderedAmount" class="form-control" type="number"
           required min="1" max="1000"
-          [(ngModel)]="model.ordered_amount" #ordered_amount="ngModel">
-        <div *ngIf="ordered_amount.invalid && (ordered_amount.dirty || ordered_amount.touched)"
+          [(ngModel)]="model.orderedAmount" #orderedAmount="ngModel">
+        <div *ngIf="orderedAmount.invalid && (orderedAmount.dirty || orderedAmount.touched)"
           class="alert alert-danger">
-          <div *ngIf="ordered_amount.errors.required">
-            Quantity in stock is required.
+          <div *ngIf="orderedAmount.errors.required">
+            Ordered amount is required.
           </div>
-          <div *ngIf="ordered_amount.errors.min">
-            Quantity in stock must be at least 1.
+          <div *ngIf="orderedAmount.errors.min">
+            Ordered amount must be at least 1.
           </div>  
-          <div *ngIf="ordered_amount.errors.max">
-            Quantity in stock must be up to 1000.
+          <div *ngIf="orderedAmount.errors.max">
+            Ordered amount must be up to 1000.
           </div>     
         </div>
       </div>

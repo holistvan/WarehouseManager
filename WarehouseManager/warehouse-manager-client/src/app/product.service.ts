@@ -51,4 +51,10 @@ export class ProductService {
         .then(product => { return product });
     }
   }
+
+  async addProduct(product: Product) {
+    await this.httpClient
+      .post<Product>('/api/products', product)
+      .toPromise();
+  }
 }
