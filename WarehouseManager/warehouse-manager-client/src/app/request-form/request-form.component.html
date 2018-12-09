@@ -1,5 +1,3 @@
-{{diagnostic}}
-
 <div class="form-group">
   <div [hidden]="submitted">
     <h1>CREATE NEW REQUEST</h1>
@@ -8,7 +6,7 @@
         <label for="user">User name</label>
         <select id="user" name="user" class="form-control" 
           required
-          [(ngModel)]="model.user" #user="ngModel">
+          [(ngModel)]="user" #name="ngModel">
           <option *ngFor="let user of users" [value]="user.userID">
             {{user.userName}}
           </option>
@@ -19,7 +17,7 @@
         <label for="product">Product name</label>
         <select id="product" name="product" class="form-control"  
           required
-          [(ngModel)]="model.product" #product="ngModel"        >
+          [(ngModel)]="product" #name="ngModel"        >
           <option *ngFor="let product of products" [value]="product.productID">
             {{product.productName}}
           </option>
@@ -30,16 +28,16 @@
         <label for="orderedAmount">Ordered Amount</label>
         <input id="orderedAmount" name="orderedAmount" class="form-control" type="number"
           required min="1" max="1000"
-          [(ngModel)]="model.orderedAmount" #orderedAmount="ngModel">
-        <div *ngIf="orderedAmount.invalid && (orderedAmount.dirty || orderedAmount.touched)"
+          [(ngModel)]="orderedAmount" #name="ngModel">
+        <div *ngIf="name.invalid && (name.dirty || name.touched)"
           class="alert alert-danger">
-          <div *ngIf="orderedAmount.errors.required">
+          <div *ngIf="name.errors.required">
             Ordered amount is required.
           </div>
-          <div *ngIf="orderedAmount.errors.min">
+          <div *ngIf="name.errors.min">
             Ordered amount must be at least 1.
           </div>  
-          <div *ngIf="orderedAmount.errors.max">
+          <div *ngIf="name.errors.max">
             Ordered amount must be up to 1000.
           </div>     
         </div>
@@ -52,3 +50,8 @@
     </form>
   </div>
 </div>
+
+<div *ngIf="submitted">
+    <h3>Saved request:</h3>
+      {{diagnostic}}
+  </div>

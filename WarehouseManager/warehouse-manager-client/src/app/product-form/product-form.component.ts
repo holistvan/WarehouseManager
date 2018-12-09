@@ -57,7 +57,6 @@ export class ProductFormComponent implements OnInit {
 
     this.submitted = true;
 
-    console.log("onSubmit(form)");
     this.productGroup = await this.groupService.getGroup(form.value.productGroup);
 
     this.nextID = this.productService.getSize() + 1;
@@ -68,7 +67,8 @@ export class ProductFormComponent implements OnInit {
                               this.productGroup,
                               form.value.quantity);
     
-    await this.productService.addProduct(this.model);
+    // await this.productService.addProduct(this.model);
+    this.products.push(this.model);
   }
 
   get diagnostic() { 

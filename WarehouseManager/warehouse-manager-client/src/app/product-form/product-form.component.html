@@ -1,5 +1,3 @@
-{{diagnostic}}
-
 <div class="form-group">
   <div [hidden]="submitted">
     <h1>ADD NEW PRODUCT</h1>
@@ -7,15 +5,15 @@
       
       <div class="form-group">
         <label for="productName">Product name</label>
-        <input id="product" name="productName" class="form-control" type="text"
+        <input id="productName" name="productName" class="form-control" type="text"
           required minlength="10"
-          [(ngModel)]="model.productName" #productName="ngModel">
-        <div *ngIf="productName.invalid && (productName.dirty || productName.touched)"
+          [(ngModel)]="productName" #name="ngModel">
+        <div *ngIf="name.invalid && (name.dirty || name.touched)"
           class="alert alert-danger">
-          <div *ngIf="productName.errors.required">
+          <div *ngIf="name.errors.required">
             Name is required.
           </div>
-          <div *ngIf="productName.errors.minlength">
+          <div *ngIf="name.errors.minlength">
             Name must be at least 10 characters long.
           </div>      
         </div>
@@ -25,13 +23,13 @@
         <label for="productType">Product type</label>
         <input id="productType" name="productType" class="form-control" type="text"
           required minlength="10"
-          [(ngModel)]="model.productType" #productType="ngModel">
-        <div *ngIf="productType.invalid && (productType.dirty || productType.touched)"
+          [(ngModel)]="productType" #name="ngModel">
+        <div *ngIf="name.invalid && (name.dirty || name.touched)"
           class="alert alert-danger">
-          <div *ngIf="productType.errors.required">
+          <div *ngIf="name.errors.required">
             Type is required.
           </div>
-          <div *ngIf="productType.errors.minlength">
+          <div *ngIf="name.errors.minlength">
             Type must be at least 10 characters long.
           </div>      
         </div>
@@ -41,7 +39,7 @@
         <label for="productGroup">Product Group</label>
         <select id="productGroup" name="productGroup" class="form-control"  
           required
-          [(ngModel)]="model.productGroup" #productGroup="ngModel"        >
+          [(ngModel)]="productGroup" #name="ngModel"        >
           <option *ngFor="let group of groups" [value]="group.groupID">
             {{group.groupName}}
           </option>
@@ -52,24 +50,29 @@
         <label for="quantity">Quantity In Stock</label>
         <input id="quantity" name="quantity" class="form-control" type="number"
           required min="1" max="1000"
-          [(ngModel)]="model.quantity" #quantity="ngModel">
-        <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"
+          [(ngModel)]="quantity" #name="ngModel">
+        <div *ngIf="name.invalid && (name.dirty || name.touched)"
           class="alert alert-danger">
-          <div *ngIf="quantity.errors.required">
+          <div *ngIf="name.errors.required">
             Quantity in stock is required.
           </div>
-          <div *ngIf="quantity.errors.min">
+          <div *ngIf="name.errors.min">
             Quantity in stock must be at least 1.
           </div>  
-          <div *ngIf="quantity.errors.max">
+          <div *ngIf="name.errors.max">
             Quantity in stock must be up to 1000.
           </div>     
         </div>
       </div>
 
       <button type="submit" class="btn btn-success" 
-      [disabled]="!productForm.form.valid">Submit</button>
+        [disabled]="!productForm.form.valid">Add new product</button>
 
     </form>
   </div>
+</div>
+
+<div *ngIf="submitted">
+  <h3>Saved product:</h3>
+    {{diagnostic}}
 </div>

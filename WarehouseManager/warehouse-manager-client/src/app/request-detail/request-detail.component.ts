@@ -16,6 +16,15 @@ export class RequestDetailComponent implements OnInit {
   request_id: number;
   request: Request;
 
+  requestID: number;
+  userID: number;
+  userName: string;
+  productID: number;
+  productName: string;
+  productType: string;
+  groupName: string;
+  orderedAmount: number;
+
   constructor(
     private requestService: RequestService,
     private route: ActivatedRoute,
@@ -25,5 +34,14 @@ export class RequestDetailComponent implements OnInit {
 
     this.request_id = await this.route.snapshot.params.request_id;
     this.request = await this.requestService.getRequest(this.request_id);
+
+    this.requestID = this.request.requestID;
+    this.userID = this.request.owner.userID;
+    this.userName = this.request.owner.userName;
+    this.productID = this.request.product.productID;
+    this.productName = this.request.product.productName;
+    this.productType = this.request.product.productType;
+    this.groupName = this.request.product.productGroup.groupName;
+    this.orderedAmount = this.request.orderedAmount;
   }
 }

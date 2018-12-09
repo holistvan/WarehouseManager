@@ -1,24 +1,36 @@
-<div class="form-group">
+<div>
     <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
         <div class="form-group">
-            <div *ngIf="message">
-                {{ message }}
-            </div>
-  
-            <mat-form-field>
-                <input matInput placeholder="Username" ngControl="username" required>
-                <mat-error *ngIf="username.invalid">Username is required</mat-error>
-            </mat-form-field>
-  
-            <mat-form-field>
-                <input matInput placeholder="Password" ngControl="password" required [type]="hidePassword ? 'password' : 'text'">
-                <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                <mat-error *ngIf="password.invalid">Password is required</mat-error>
-            </mat-form-field>
-  
-            <div>
-                <button mat-flat-button type="submit" color="primary" [disabled]="form.invalid">Save</button>
-            </div>
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username"
+                    name="username" placeholder="Enter username" 
+                    required minlength="8" [(ngModel)]="username" #name="ngModel">
+                <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="name.errors.required">
+                        Username is required.
+                    </div>
+                    <div *ngIf="name.errors.minlength">
+                            Username must be at least 8 characters long.
+                    </div>
+                </div>
         </div>
-  </form>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" 
+                    name="password" placeholder="Enter password"
+                    required minlength="8" [(ngModel)]="password" #name="ngModel">
+                <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="name.errors.required">
+                        Password is required.
+                    </div>
+                    <div *ngIf="name.errors.minlength">
+                        Password must be at least 8 characters long.
+                    </div>
+                </div>
+        </div>
+        <button type="submit" class="btn btn-success"
+            [disabled]="!loginForm.form.valid">Login</button>
+    </form>
 </div>

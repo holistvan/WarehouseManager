@@ -15,11 +15,11 @@ export const httpOptions = {
 export class AuthService {
 
   isLoggedIn: boolean = false;
-  redirectUrl: string;
+  
   user: User;
   token: string;
 
-  private authUrl = '/api/users';
+  redirectUrl ='/products';
 
   constructor(
     private http: HttpClient,
@@ -28,7 +28,6 @@ export class AuthService {
   async login(username: string, password: string): Promise<User> {
     try {
       this.token = btoa(`${username}:${password}`);
-      console.log(this.authUrl);
       httpOptions.headers = httpOptions.headers.set('Authorization', `Basic ${this.token}`);
       this.isLoggedIn = true;
       return this.user;

@@ -13,7 +13,12 @@ import { Product } from '../model/product';
 export class ProductDetailComponent implements OnInit {
 
   product_id: number;
+  productID: number;
   product: Product;
+  productName: string;
+  productType: string;
+  groupName: string;
+  quantity: number;
 
   constructor(
     private productService: ProductService,
@@ -23,5 +28,11 @@ export class ProductDetailComponent implements OnInit {
   async ngOnInit() {
     this.product_id = await this.route.snapshot.params.product_id;
     this.product = await this.productService.getProduct(this.product_id);
+
+    this.productID = this.product.productID;
+    this.productName = this.product.productName;
+    this.productType = this.product.productType;
+    this.groupName = this.product.productGroup.groupName;
+    this.quantity = this.product.quantity;
   }
 }
