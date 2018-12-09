@@ -13,6 +13,9 @@
       <div><span>Product group name: </span>{{groupName}}</div>
       <p></p>
       <div><span>Ordered amount: </span>{{orderedAmount}}</div>
+      <button mat-icon-button (click)="deleteRequest(request.requestID)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </ul>
   </div>
 </div>

@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { RequestService } from '../request.service';
 import { Request } from '../model/request';
 
+import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'request-detail',
   templateUrl: './request-detail.component.html',
@@ -28,6 +30,7 @@ export class RequestDetailComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private route: ActivatedRoute,
+    private httpClient: HttpClient
   ) { }
 
   async ngOnInit() {
@@ -43,5 +46,11 @@ export class RequestDetailComponent implements OnInit {
     this.productType = this.request.product.productType;
     this.groupName = this.request.product.productGroup.groupName;
     this.orderedAmount = this.request.orderedAmount;
+  }
+  public async deleteRequest(requestId: number) {
+    await this.httpClient.delete<null>(
+      `/api/requests/${requestId}`
+    ).toPromise();
+    await this.requestService.getAllRequests;
   }
 }
