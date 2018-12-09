@@ -19,6 +19,7 @@ import { ProductFilterComponent } from './product-filter/product-filter.componen
 import { UserService } from './user.service';
 import { RequestService } from './request.service';
 import { ProductgroupService } from './productgroup.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ProductgroupService } from './productgroup.service';
     RequestDetailComponent,
     RequestFilterComponent,
     ProductFilterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

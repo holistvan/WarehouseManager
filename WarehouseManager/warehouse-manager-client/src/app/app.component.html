@@ -3,9 +3,15 @@
     <mat-icon>home</mat-icon>
     WareHouse Manager
   </button>
-  <button mat-button routerLink="/requests">My requests</button>
-  <button mat-button routerLink="/products">Products</button>
-  <button mat-button routerLink="/requests/new">Create new request</button>
-  <button mat-button routerLink="/products/new">Add new product</button>
+  <div *ngIf="authService.isLoggedIn">
+    <button mat-button routerLink="/requests">My requests</button>
+    <button mat-button routerLink="/products">Products</button>
+    <button mat-button routerLink="/requests/new">Create new request</button>
+    <button mat-button routerLink="/products/new">Add new product</button>
+    <button mat-button (click)="logout()">Logout</button>
+  </div>
+  <div *ngIf="!authService.isLoggedIn">
+    <button mat-button routerLink="/login">Login</button>
+  </div>
 </mat-toolbar>
 <router-outlet></router-outlet>

@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { User } from '../model/user';
-import { Request } from '../model/request';
 import { Product } from '../model/product';
 
 import { ProductService } from '../product.service';

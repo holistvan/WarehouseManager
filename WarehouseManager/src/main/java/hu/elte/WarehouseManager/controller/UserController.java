@@ -1,12 +1,10 @@
 package hu.elte.WarehouseManager.controller;
 
-import hu.elte.WarehouseManager.model.Product;
-import hu.elte.WarehouseManager.model.ProductGroup;
 import hu.elte.WarehouseManager.model.Request;
 import hu.elte.WarehouseManager.model.User;
-import hu.elte.WarehouseManager.repository.ProductRepository;
 import hu.elte.WarehouseManager.repository.RequestRepository;
 import hu.elte.WarehouseManager.repository.UserRepository;
+import hu.elte.WarehouseManager.security.AuthenticatedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -19,16 +17,17 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
+@Secured({ "ROLE_USER", "ROLE_ADMIN"})
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
-    // @Autowired
-    // private AuthenticatedUser authenticatedUser;
-
     @Autowired
     private RequestRepository requestRepository;
+
+    @Autowired
+    private AuthenticatedUser authenticatedUser;
 
     @GetMapping("")
     public Iterable<User> getAll() {
@@ -36,7 +35,6 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    // @Secured({ "ROLE_USER" })
     public ResponseEntity<User> get(@PathVariable Integer id) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
@@ -46,10 +44,10 @@ public class UserController {
         }
     }
 
-    // @PostMapping("login")
-    // public ResponseEntity<User> login() {
-    //    return ResponseEntity.ok(authenticatedUser.getUser());
-    // }
+    @PostMapping("login")
+    public ResponseEntity<User> login() {
+        return ResponseEntity.ok(authenticatedUser.getUser());
+    }
 
     @GetMapping("/{id}/requests")
     public ResponseEntity<List<Request>> getUserRequests(@PathVariable Integer id) {

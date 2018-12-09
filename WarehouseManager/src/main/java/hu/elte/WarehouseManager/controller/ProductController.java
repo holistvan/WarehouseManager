@@ -16,14 +16,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
-@Secured({ "ROLE_ADMIN" })
+@Secured({ "ROLE_USER", "ROLE_ADMIN"})
 public class ProductController {
 
     @Autowired
     private ProductRepository productRepository;
-
-    @Autowired
-    private ProductGroupRepository productGroupRepository;
 
     @GetMapping("")
     public Iterable<Product> getAll() {

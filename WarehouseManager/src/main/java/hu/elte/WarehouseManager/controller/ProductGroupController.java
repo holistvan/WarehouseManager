@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/groups")
-// @Secured({ "ROLE_USER", "ROLE_ADMIN" })
+@Secured({ "ROLE_USER", "ROLE_ADMIN"})
 public class ProductGroupController {
 
     @Autowired
