@@ -8,8 +8,11 @@
       
       <div><span>Product type name: </span>{{productType}}</div>
       <div><span>Product group name: </span>{{groupName}}</div>
-      
+
       <div><span>Quantity in stock: </span>{{quantity}}</div>
+      <button mat-icon-button (click)="deleteProduct(product.productID)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </ul>
   </div>
 </div>

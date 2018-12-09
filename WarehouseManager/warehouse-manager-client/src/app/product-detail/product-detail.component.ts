@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
 import { Product } from '../model/product';
 
+import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'product-detail',
   templateUrl: './product-detail.component.html',
@@ -23,6 +25,7 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
+    private httpClient: HttpClient
   ) { }
 
   async ngOnInit() {
@@ -34,5 +37,13 @@ export class ProductDetailComponent implements OnInit {
     this.productType = this.product.productType;
     this.groupName = this.product.productGroup.groupName;
     this.quantity = this.product.quantity;
+  }
+  
+  public async deleteProduct(productId: number) {
+    const Id = parseInt(this.route.snapshot.params.id as string);
+    await this.httpClient.delete<null>(
+      `/api/products/${productId}`
+    ).toPromise();
+    await this.productService.getAllProducts();
   }
 }
