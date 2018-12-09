@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   message: string;
   username: string;
   password: string;
+  wrongCredentials = false;
 
   constructor(
     private authService: AuthService,
@@ -30,11 +31,13 @@ export class LoginComponent implements OnInit {
 
     try {
       await this.authService.login(this.username, this.password);
-      console.log(this.authService.redirectUrl);
-      if (this.authService.redirectUrl) {
-        this.router.navigate([this.authService.redirectUrl]);
-      } else {
-        this.router.navigate(['/']);
+      
+      if( !this.authService.wrongCredentials ) {
+        if (this.authService.redirectUrl) {
+          this.router.navigate([this.authService.redirectUrl]);
+        } else {
+          this.router.navigate(['/']);
+        }
       }
     }
     catch(e) {

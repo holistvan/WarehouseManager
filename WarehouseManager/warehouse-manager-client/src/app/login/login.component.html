@@ -32,5 +32,8 @@
         </div>
         <button type="submit" class="btn btn-success"
             [disabled]="!loginForm.form.valid">Login</button>
+        <div *ngIf="authService.wrongCredentials">
+            Wrong Credentials! Please try again!
+        </div>
     </form>
 </div>
