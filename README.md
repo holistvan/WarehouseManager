@@ -44,4 +44,4 @@
 
 #### 6. UseCase diagram:
 
-![alt text](https://github.com/holistvan/WarehouseManager/blob/master/UseCase.jpg)
+![alt text](https://github.com/holistvan/WarehouseManager/blob/master/UseCase.JPG)
